@@ -6,7 +6,7 @@ import { UI, fadeUpVariant, staggerContainer } from "@/lib/constants";
 
 export default function AiFeatures() {
   return (
-    <section className="py-24 relative w-full px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-indigo-50/50 via-purple-50/30 to-slate-50/60 dark:from-[#05030f] dark:via-[#0b061a] dark:to-[#030307]">
+    <section className="py-24 relative w-full px-4 sm:px-6 lg:px-8 overflow-hidden dark:from-[#05030f] dark:via-[#0b061a] dark:to-[#030307]">
       <div className="absolute inset-0 bg-[radial-gradient(#818cf8_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.15] dark:opacity-[0.08] pointer-events-none"></div>
       <div className="w-full max-w-[90rem] mx-auto relative z-10">
         <motion.div variants={staggerContainer} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} className="text-center mb-16 max-w-3xl mx-auto">
