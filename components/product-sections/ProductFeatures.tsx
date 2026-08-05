@@ -17,7 +17,7 @@ const IconRenderer = ({ name }: { name: string }) => {
 
 export default function ProductFeatures({ heading, subheading, features }: { heading: string, subheading: string, features: FeatureData[] }) {
   return (
-    <section className="py-24 sm:py-32 relative w-full px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-br from-purple-50/50 via-indigo-50/40 to-blue-50/50 dark:from-[#0a0518] dark:via-[#04030f] dark:to-[#030307]">
+    <section className="py-24 sm:py-32 relative w-full px-4 sm:px-6 lg:px-8 overflow-hidden dark:from-[#0a0518] dark:via-[#04030f] dark:to-[#030307]">
       <div className="absolute inset-0 bg-[radial-gradient(#818cf8_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.15] dark:opacity-[0.08] pointer-events-none"></div>
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] bg-gradient-to-tr from-purple-500/10 via-indigo-500/10 to-transparent blur-[140px] pointer-events-none"></div>
 

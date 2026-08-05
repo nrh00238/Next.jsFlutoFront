@@ -7,7 +7,7 @@ import { TestimonialData } from "@/lib/product-data";
 
 export default function ProductTestimonials({ testimonials }: { testimonials: TestimonialData[] }) {
   return (
-    <section className="py-24 relative w-full overflow-hidden bg-gradient-to-br from-purple-50/40 via-indigo-50/40 to-blue-50/50 dark:from-[#04030a] dark:via-[#070316] dark:to-[#030307] border-t border-gray-100 dark:border-white/5">
+    <section className="py-24 relative w-full overflow-hidden dark:from-[#04030a] dark:via-[#070316] dark:to-[#030307] border-t border-gray-100 dark:border-white/5">
       <div className="absolute inset-0 bg-[radial-gradient(#818cf8_1px,transparent_1px)] [background-size:32px_32px] opacity-[0.15] dark:opacity-[0.08] pointer-events-none"></div>
       
       <div className="max-w-7xl mx-auto relative z-10">

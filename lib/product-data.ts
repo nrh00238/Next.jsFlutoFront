@@ -71,7 +71,7 @@ export const productDatabase: Record<string, ProductConfig> = {
       headingGradient: "Multiply revenue.",
       subheading: "Manage sales pipelines, track leads in real-time, and close enterprise deals faster with our AI-powered CRM built for modern teams.",
       ctaPrimary: "Start CRM Free Trial",
-      ctaSecondary: "Book a Demo"
+      ctaSecondary: "Talk to Experts"
     },
     features: {
       sectionHeading: "Engineered for sales velocity.",
@@ -171,7 +171,7 @@ export const productDatabase: Record<string, ProductConfig> = {
       headingGradient: "Convert faster.",
       subheading: "Build, design, and send stunning campaigns with intelligent behavior tracking.",
       ctaPrimary: "Start Sending Now",
-      ctaSecondary: "View Templates"
+      ctaSecondary: "Talk to Experts"
     },
     features: {
       sectionHeading: "Reach the right inbox.",
@@ -221,7 +221,7 @@ export const productDatabase: Record<string, ProductConfig> = {
       headingGradient: "Delight customers.",
       subheading: "Omnichannel customer service with automated SLA tracking and zero noise.",
       ctaPrimary: "Setup Helpdesk",
-      ctaSecondary: "Explore Features"
+      ctaSecondary: "Talk to Experts"
     },
     features: {
       sectionHeading: "Resolve tickets faster.",
@@ -271,7 +271,7 @@ export const productDatabase: Record<string, ProductConfig> = {
       headingGradient: "Perfectly balanced.",
       subheading: "Get paid faster with automated, multi-currency billing and real-time financial reporting.",
       ctaPrimary: "Automate Finances",
-      ctaSecondary: "See Reports"
+      ctaSecondary: "Talk to Experts"
     },
     features: {
       sectionHeading: "Your ledgers, perfectly balanced.",
@@ -321,7 +321,7 @@ export const productDatabase: Record<string, ProductConfig> = {
       headingGradient: "Absolute precision.",
       subheading: "Manage IT hardware, software licenses, and physical company assets effortlessly from procurement to retirement.",
       ctaPrimary: "Manage Assets",
-      ctaSecondary: "Learn More"
+      ctaSecondary: "Talk to Experts"
     },
     features: {
       sectionHeading: "Total asset visibility.",

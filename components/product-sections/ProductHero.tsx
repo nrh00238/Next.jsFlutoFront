@@ -45,7 +45,7 @@ export default function ProductHero({
         <Button href="/register" variant="primary" size="md">
           {hero.ctaPrimary} <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
         </Button>
-        <Button href="/sales" variant="secondary" size="md">
+        <Button href="/contact" variant="secondary" size="md">
           <Sparkles className="w-4 h-4 text-indigo-500 group-hover:scale-110 transition-transform" /> {hero.ctaSecondary}
         </Button>
       </div>

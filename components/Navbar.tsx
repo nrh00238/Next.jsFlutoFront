@@ -16,14 +16,11 @@ import { Button } from "@/components/Button";
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  
   const [activeDropdown, setActiveDropdown] = useState<"apps" | "industries" | "community" | null>(null);
-
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mobileAppsOpen, setMobileAppsOpen] = useState(false);
   const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
   const [mobileCommunityOpen, setMobileCommunityOpen] = useState(false);
-
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrolled, setScrolled] = useState(false);
@@ -311,7 +308,7 @@ export default function Navbar() {
                     <h4 className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest px-2">Learn</h4>
                     <div className="space-y-1">
                       <Link href="/community/tutorials" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Tutorials & Guides</Link>
-                      <Link href="/community/certifications" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Certifications</Link>
+                      <Link href="/" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Certifications</Link>
                       <Link href="/resources/blog" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Blog & Articles</Link>
                     </div>
                   </div>
@@ -319,9 +316,9 @@ export default function Navbar() {
                   <div className="space-y-3 border-x border-gray-100 dark:border-white/5 px-4">
                     <h4 className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest px-2">Collaborate</h4>
                     <div className="space-y-1">
-                      <Link href="/community/forums" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Developer Forum</Link>
+                      <Link href="/" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Developer Forum</Link>
                       <Link href="/community/events" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Global Events</Link>
-                      <Link href="/community/partners" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Become a Partner</Link>
+                      <Link href="/" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Become a Partner</Link>
                     </div>
                   </div>
 
@@ -346,7 +343,7 @@ export default function Navbar() {
 
           <div className="relative h-20 flex items-center px-3">
             <Link href="/help" onClick={closeDropdown} className="hover:text-indigo-600 dark:hover:text-white transition py-2 relative group">
-              Help
+              Help & Support
               <span className="absolute bottom-0 left-0 w-full h-[2px] bg-indigo-600 dark:bg-indigo-400 transition-all duration-300 rounded-full scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100" />
             </Link>
           </div>
@@ -444,8 +441,8 @@ export default function Navbar() {
                 {mobileCommunityOpen && (
                   <div className="px-3 pb-3 pt-1 space-y-2 grid grid-cols-1 border-t border-gray-200/50 dark:border-white/10 mt-1 text-xs">
                     <Link href="/community/tutorials" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Tutorials & Guides</Link>
-                    <Link href="/community/certifications" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Certifications</Link>
-                    <Link href="/community/forums" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Developer Forum</Link>
+                    <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Certifications</Link>
+                    <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Developer Forum</Link>
                     <Link href="/community/events" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Global Events</Link>
                     <Link href="/community/find-partner" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Find a Partner</Link>
                   </div>
@@ -454,7 +451,7 @@ export default function Navbar() {
 
               <div className="bg-gray-50 dark:bg-white/[0.02] rounded-2xl p-2 border border-gray-100 dark:border-white/5">
                 <Link href="/pricing" onClick={() => setIsMobileMenuOpen(false)} className="w-full flex items-center justify-between p-3 text-gray-900 dark:text-white font-bold">
-                  <span>Pricing Hub</span>
+                  <span>Pricing</span>
                   <ArrowRight className="w-4 h-4 text-indigo-500" />
                 </Link>
               </div>
