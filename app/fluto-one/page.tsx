@@ -9,20 +9,17 @@ import ProductFAQ from "@/components/product-sections/ProductFAQ";
 import ProductPricing from "@/components/product-sections/ProductPricing";
 import Footer from "@/components/Footer";
 
-// 🟢 The Sticky Showcase Component
-import FlutoOneStickyShowcase from "@/components/product-sections/FlutoOneStickyShowcase";
-
 export const metadata: Metadata = {
   title: "Fluto One | The Ultimate Marketing & Business Suite",
   description: "Replace your fragmented marketing stack with one unified OS. AI Campaign Automation, Lead Scoring, and Omnichannel outreach.",
 };
 
 export default function FlutoOnePage() {
-  // 🟢 FULLY DEFINED DATA OBJECT (No missing properties)
   const flutoOneData = {
     badge: "Fluto One Ultimate Suite",
     hero: {
-      heading: "The ultimate marketing & business power-pack.",
+      headingTop: "The ultimate marketing",
+      headingGradient: "& business power-pack.",
       subheading: "Replace your fragmented marketing stack with one unified OS. Seamlessly connect AI campaign automation, lead scoring, and omnichannel outreach.",
       ctaPrimary: "Start Free Trial",
       ctaSecondary: "Talk to Experts"
@@ -34,7 +31,7 @@ export default function FlutoOnePage() {
         { title: "AI Campaign Automation", desc: "Generate multi-step email and WhatsApp journeys that optimize themselves for conversions.", colSpan: "col-span-1 md:col-span-2", icon: "brain" },
         { title: "Omnichannel Outreach", desc: "Engage leads across Web, Email, and Social from one shared inbox.", colSpan: "col-span-1", icon: "dashboard" },
         { title: "Lead Scoring", desc: "Automatically rank and prioritize leads based on engagement and behavioral data.", colSpan: "col-span-1", icon: "target" },
-        { title: "Unified Analytics", desc: "Track ROI from ad-click to closed-deal in a single customized dashboard.", colSpan: "col-span-1 md:col-span-2", icon: "barChart" } 
+        { title: "Unified Analytics", desc: "Track ROI from ad-click to closed-deal in a single customized dashboard.", colSpan: "col-span-1 md:col-span-2", icon: "barChart" }
       ]
     },
     testimonials: [
@@ -61,35 +58,25 @@ export default function FlutoOnePage() {
   };
 
   return (
-   <main className="bg-white dark:bg-[#030303] min-h-screen transition-colors duration-300 selection:bg-indigo-500 selection:text-white text-gray-900 dark:text-gray-100">
+    <main className="bg-white dark:bg-[#030303] min-h-screen transition-colors duration-300 selection:bg-indigo-500 selection:text-white overflow-hidden text-gray-900 dark:text-gray-100">
       
-      {/* 1. Hero Section */}
-      <ProductHero badge={flutoOneData.badge} hero={flutoOneData.hero} />
+      <ProductHero badge={flutoOneData.badge} hero={flutoOneData.hero} slug="one" />
       
-      {/* 2. Interactive Sticky Scroll Showcase */}
-      <FlutoOneStickyShowcase />
-
-      {/* 3. Core Features Bento Grid */}
       <ProductFeatures 
         heading={flutoOneData.features.sectionHeading} 
         subheading={flutoOneData.features.sectionSubheading} 
         features={flutoOneData.features.items as any} 
       />
       
-      {/* 4. The Comparison Section */}
       <ProductComparison />
       
-      {/* 5. The Integrations Section */}
       <ProductIntegrations />
       
-      {/* 6. Stats & Testimonials */}
       <ProductStats stats={flutoOneData.stats} />
       <ProductTestimonials testimonials={flutoOneData.testimonials} />
       
-      {/* 7. FAQ Section */}
       <ProductFAQ faqs={flutoOneData.faqs} />
       
-      {/* 8. Pricing Section */}
       <ProductPricing tiers={flutoOneData.pricing} />
       
       <Footer />
