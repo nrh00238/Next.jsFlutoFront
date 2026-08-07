@@ -14,7 +14,7 @@ const jakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Fluto OS | One Powerful OS for your entire business", // Thoda upgrade kiya h aapke brand naye brand flow ke hisab se
+  title: "Fluto OS | One Powerful OS for your entire business",
   description: "Replace your fragmented tech stack. Fluto centralizes workflows, data, and collaboration into a single, high-performance workspace.",
 };
 
@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`scroll-smooth ${jakarta.variable}`} suppressHydrationWarning>
-      <body className={`${jakarta.className} bg-[#fafafa] dark:bg-[#030303] text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300 selection:bg-indigo-500 selection:text-white`}>
+      <body suppressHydrationWarning className={`${jakarta.className} bg-[#fafafa] dark:bg-[#030303] text-gray-900 dark:text-gray-100 font-sans antialiased transition-colors duration-300 selection:bg-indigo-500 selection:text-white`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light" 
