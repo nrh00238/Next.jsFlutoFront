@@ -4,15 +4,15 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Check, X, Sparkles, Building2, ArrowRight, 
-  HelpCircle, Calculator, ShieldCheck, Layers, Zap, CheckCircle2,
+  Calculator, ShieldCheck, Layers, Zap, CheckCircle2,
   Mail, Briefcase, HeadphonesIcon, Box, ChevronDown
 } from "lucide-react";
 import Link from "next/link";
-import { UI, fadeUpVariant } from "@/lib/constants";
+import { UI } from "@/lib/constants";
 import Footer from "@/components/Footer";
-import GlobalHero from "@/components/layout/GlobalHero"; // 🟢 IMPORTED GLOBAL HERO
+import GlobalHero from "@/components/layout/GlobalHero";
+import { Button } from "@/components/Button";
 
-// --- MASTER COMPARISON MATRIX DATA ---
 const comparisonCategories = [
   {
     category: "Fluto Campaigns (Marketing)",
@@ -96,10 +96,7 @@ export default function MasterPricingPage() {
 
   return (
     <main className={UI.pageWrapper}>
-      
-      {/* ====================================================================
-          1. NEW GLOBAL HERO & BILLING TOGGLE
-      ==================================================================== */}
+
       <GlobalHero 
         badgeText="Master Pricing Hub"
         badgeIcon={<Layers className="w-4 h-4" />}
@@ -107,7 +104,6 @@ export default function MasterPricingPage() {
         titleGradient="For every scale."
         description="Choose between individual apps or the all-in-one Fluto One Suite. Flexible monthly or annual billing options to suit your business needs."
       >
-        {/* 🟢 BILLING TOGGLE SWITCH INJECTED AS CHILDREN */}
         <div className="flex items-center justify-center gap-4 bg-white/50 dark:bg-black/20 p-2 pr-4 pl-6 rounded-full border border-gray-200/50 dark:border-white/10 backdrop-blur-md shadow-sm">
           <span className={`text-sm font-bold ${!isAnnual ? "text-gray-900 dark:text-white" : "text-gray-500"}`}>Monthly</span>
           <button 
@@ -122,9 +118,6 @@ export default function MasterPricingPage() {
         </div>
       </GlobalHero>
 
-      {/* ====================================================================
-          2. CORE PRICING TIERS (ALA CARTE VS FLUTO ONE)
-      ==================================================================== */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto -mt-12 relative z-20 mb-24">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           
@@ -151,9 +144,9 @@ export default function MasterPricingPage() {
               </div>
             </div>
 
-            <Link href="/register" className={UI.buttonSecondary + " mt-8 w-full"}>
+            <Button href="/register" variant="darkSecondary" size="md">
               Choose Standalone App
-            </Link>
+            </Button>
           </div>
 
           {/* TIER 2: FLUTO ONE (FLAGSHIP BUNDLE) */}
@@ -180,7 +173,7 @@ export default function MasterPricingPage() {
                 <span className="text-indigo-200 text-sm font-medium"> / total / mo</span>
               </div>
 
-              <div className="space-y-3 pt-6 border-t border-indigo-500/30 text-sm font-medium text-gray-200">
+              <div className="space-y-3 pt-6 pb-6 border-t border-indigo-500/30 text-sm font-medium text-gray-200">
                 <div className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-green-400 shrink-0" /> <strong className="text-white">All 6+ Enterprise Modules Included</strong></div>
                 <div className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" /> Unlimited Team Seats</div>
                 <div className="flex items-center gap-3"><CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" /> Unified Single Sign-On (SSO)</div>
@@ -189,9 +182,9 @@ export default function MasterPricingPage() {
               </div>
             </div>
 
-            <Link href="/register" className="mt-8 block w-full py-4 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-bold text-center text-sm shadow-[0_10px_30px_rgba(79,70,229,0.4)] transition-all relative z-10">
+            <Button href="/register" variant="primary" size="md">
               Get Fluto One Suite
-            </Link>
+            </Button>
           </div>
 
           {/* TIER 3: ENTERPRISE CUSTOM */}
@@ -214,9 +207,9 @@ export default function MasterPricingPage() {
               </div>
             </div>
 
-            <Link href="/enterprise" className="mt-8 block w-full py-4 rounded-xl bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-bold text-center text-sm hover:bg-gray-800 dark:hover:bg-gray-100 transition-colors">
+            <Button href="/register" variant="darkSecondary" size="md">
               Talk to Architecture Team
-            </Link>
+            </Button>
           </div>
 
         </div>
@@ -382,19 +375,19 @@ export default function MasterPricingPage() {
           <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/20 blur-3xl rounded-full pointer-events-none"></div>
           
           <div className="relative z-10 max-w-3xl mx-auto">
-            <h2 className="text-3xl sm:text-5xl font-black mb-6 tracking-tight text-white">
+            <h2 className="text-3xl sm:text-4xl font-black mb-6 tracking-tight text-white">
               Ready to unify your business stack?
             </h2>
             <p className="text-indigo-200 text-base sm:text-lg mb-8 font-normal leading-relaxed">
               Start your 14-day free trial of Fluto One today. No credit card required.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/register" className="px-8 py-4 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-bold text-sm shadow-xl transition-all flex items-center justify-center gap-2 group">
+              <Button href="/register" variant="primary" size="md">
                 Start Free Trial <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link href="/enterprise" className="px-8 py-4 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm transition-all border border-white/10 flex items-center justify-center">
+              </Button>
+              <Button href="/enterprise" variant="secondary" size="md">
                 Talk to Sales Team
-              </Link>
+              </Button>
             </div>
           </div>
         </div>

@@ -12,7 +12,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-16">
           
           {/* Brand Col */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2" id="subscribe-newsletter">
             <Link href="/" className="text-gray-900 dark:text-white font-bold text-2xl tracking-tight mb-4 inline-block">
               Fluto<span className="text-indigo-600 dark:text-indigo-400">.</span>
             </Link>
@@ -51,8 +51,8 @@ export default function Footer() {
             <h4 className="text-gray-900 dark:text-white font-bold text-sm mb-5 tracking-tight">Resources</h4>
             <ul className="space-y-3 text-sm font-medium text-gray-500 dark:text-gray-400">
               <li><Link href="/community/tutorials" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Documentation</Link></li>
-              <li><Link href="/developers" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">API Reference</Link></li>
-              <li><Link href="/resources/blog" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Company Blog</Link></li>
+              <li><Link href="/community/forms" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">API Reference</Link></li>
+              <li><Link href="/resources/blog" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Blog & Articles</Link></li>
               <li><Link href="/community/events" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Events & Webinars</Link></li>
               <li><Link href="/help" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Support Center</Link></li>
             </ul>

@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import { MessageSquare, Users, Code, HelpCircle, CheckCircle2, ChevronRight, ArrowRight } from "lucide-react";
-import { fadeUpVariant, UI } from "@/lib/constants";
+import { UI } from "@/lib/constants";
 import Footer from "@/components/Footer";
 import GlobalHero from "@/components/layout/GlobalHero";
+import { Button } from "@/components/Button";
 
 export default function ForumsPage() {
   const discussions = [
@@ -22,8 +23,6 @@ export default function ForumsPage() {
 
   return (
     <main className={UI.pageWrapper}>
-      
-      {/* 🟢 NEW CONSISTENT HERO INJECTION */}
       <GlobalHero 
         badgeText="Developer Community"
         badgeIcon={<Code className="w-4 h-4" />}
@@ -32,12 +31,12 @@ export default function ForumsPage() {
         description="Join thousands of engineers building the future of business operations on Fluto OS. Ask questions, share your builds, and get help from core maintainers."
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full sm:w-auto">
-          <button className={UI.buttonPrimary}>
+          <Button variant="primary" size="md">
             Start New Discussion <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-          </button>
-          <button className={UI.buttonSecondary}>
+          </Button>
+          <Button variant="secondary" size="md">
             Browse Categories
-          </button>
+          </Button>
         </div>
       </GlobalHero>
 

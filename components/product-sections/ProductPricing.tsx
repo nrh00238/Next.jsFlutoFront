@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { CheckCircle2, Sparkles } from "lucide-react";
 import { UI, fadeUpVariant, staggerContainer } from "@/lib/constants";
 import { PricingTier } from "@/lib/product-data";
+import { Button } from "@/components/Button";
 
 export default function ProductPricing({ tiers }: { tiers: PricingTier[] }) {
   const [isAnnual, setIsAnnual] = useState(true);
@@ -71,10 +72,9 @@ export default function ProductPricing({ tiers }: { tiers: PricingTier[] }) {
                   ))}
                 </div>
               </div>
-
-              <button className={`w-full py-4 rounded-xl font-bold text-sm transition-all mt-auto ${tier.isPopular ? "bg-indigo-500 text-white hover:bg-indigo-400 shadow-lg" : "bg-indigo-50 dark:bg-[#151515] text-indigo-950 dark:text-white border border-indigo-100 dark:border-white/10 hover:border-indigo-500 dark:hover:border-indigo-500"}`}>
+              <Button variant={tier.isPopular ? "primary" : "secondary"} size="md">
                 {tier.buttonText}
-              </button>
+              </Button>
             </motion.div>
           ))}
         </motion.div>

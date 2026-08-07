@@ -1,10 +1,11 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Calendar, MapPin, Video, Users, ArrowRight } from "lucide-react";
+import { MapPin, Video, Users } from "lucide-react";
 import { fadeUpVariant, UI } from "@/lib/constants";
 import Footer from "@/components/Footer";
 import GlobalHero from "@/components/layout/GlobalHero";
+import { Button } from "@/components/Button";
 
 export default function EventsPage() {
   const events = [
@@ -23,9 +24,6 @@ export default function EventsPage() {
         titleGradient="Fluto Meetups."
         description="Discover upcoming conferences, hands-on developer workshops, and virtual webinars happening around the globe."
       >
-        <button className={UI.buttonPrimary}>
-          Browse Upcoming Events <ArrowRight className="w-4 h-4 ml-1" />
-        </button>
       </GlobalHero>
 
       {/* EVENTS LIST */}
@@ -54,9 +52,9 @@ export default function EventsPage() {
               </div>
 
               <div className="w-full md:w-auto shrink-0">
-                <button className={UI.buttonSecondary}>
+                <Button variant="secondary" size="md">
                   View Details
-                </button>
+                </Button>
               </div>
             </motion.div>
           ))}

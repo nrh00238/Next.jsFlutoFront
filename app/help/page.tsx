@@ -6,6 +6,7 @@ import { fadeUpVariant, UI } from "@/lib/constants";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import GlobalHero from "@/components/layout/GlobalHero";
+import {Button} from "@/components/Button";
 
 export default function HelpCenterPage() {
   const categories = [
@@ -18,7 +19,6 @@ export default function HelpCenterPage() {
   return (
     <main className={UI.pageWrapper}>
       
-      {/* 🟢 NEW CONSISTENT HERO WITH 2-LINE HEADING & EMBEDDED SEARCH */}
       <GlobalHero 
         badgeText="Support & Resources"
         badgeIcon={<LifeBuoy className="w-4 h-4" />}
@@ -35,9 +35,9 @@ export default function HelpCenterPage() {
             className="flex-1 px-4 py-4 border-0 bg-transparent text-gray-900 dark:text-white placeholder:text-gray-400 focus:ring-0 sm:text-lg outline-none" 
             placeholder="Search for articles, guides, or error codes..." 
           />
-          <button className={`${UI.buttonPrimary} hidden sm:flex px-6 py-4`}>
+          <Button variant="primary" size="md">
             Search
-          </button>
+          </Button>
         </div>
       </GlobalHero>
 
@@ -79,18 +79,17 @@ export default function HelpCenterPage() {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto shrink-0">
-              <button className="px-6 py-4 bg-white text-indigo-950 font-bold rounded-xl text-sm hover:bg-gray-100 transition-colors shadow-lg flex items-center justify-center gap-2">
+              <Button variant="primary" size="md">
                 <MessageCircle className="w-4 h-4" /> Open Live Chat
-              </button>
-              <button className="px-6 py-4 bg-indigo-800 text-white font-bold rounded-xl text-sm hover:bg-indigo-700 transition-colors border border-indigo-600 flex items-center justify-center gap-2">
+              </Button>
+              <Button variant="secondary" size="md">
                 Submit a Ticket <ArrowRight className="w-4 h-4" />
-              </button>
+              </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* FOOTER ADDED FOR CONSISTENCY */}
       <Footer />
     </main>
   );

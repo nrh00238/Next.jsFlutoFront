@@ -5,7 +5,7 @@ import { BookOpen, ArrowRight, Clock } from "lucide-react";
 import { fadeUpVariant, UI } from "@/lib/constants";
 import Footer from "@/components/Footer";
 import GlobalHero from "@/components/layout/GlobalHero";
-import Link from "next/link";
+import { Button } from "@/components/Button";
 
 export default function BlogPage() {
   const articles = [
@@ -29,9 +29,9 @@ export default function BlogPage() {
         description="Stay updated with product releases, read engineering deep-dives, and learn enterprise growth strategies."
       >
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center w-full sm:w-auto">
-          <button className={UI.buttonPrimary}>
+          <Button variant="primary" href="#subscribe-newsletter" size="md">
             Subscribe to Newsletter <ArrowRight className="w-4 h-4 ml-1" />
-          </button>
+          </Button>
         </div>
       </GlobalHero>
 

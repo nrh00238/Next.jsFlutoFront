@@ -459,6 +459,8 @@ export default function Navbar() {
                     <Link href="/industries/healthcare" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Healthcare</Link>
                     <Link href="/industries/retail" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Retail & E-commerce</Link>
                     <Link href="/industries/saas" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Tech & SaaS</Link>
+                    <Link href="/industries/manufacturing" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Manufacturing</Link>
+                    <Link href="/industries/education" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Education & Edtech</Link>
                   </div>
                 )}
               </div>

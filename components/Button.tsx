@@ -31,13 +31,13 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variants = {
     primary:
-      "bg-gradient-to-r from-indigo-500 to-purple-500 hover:bg-indigo-700 text-white font-bold shadow-[0_10px_30px_rgba(79,70,229,0.4)] hover:scale-105 active:scale-95",
+      "bg-gradient-to-r from-indigo-500 to-purple-500 hover:bg-indigo-700 text-white font-bold shadow-[0_3px_9px_rgba(79,70,229,0.4)] hover:scale-105 active:scale-95",
     secondary:
-      "bg-white dark:bg-[#0A0A0A] border border-gray-200/80 dark:border-white/10 text-gray-900 dark:text-white font-bold hover:border-indigo-500/50 shadow-[0_10px_30px_rgba(79,70,229,0.4)] hover:scale-105 active:scale-95",
+      "bg-white dark:bg-[#0A0A0A] border border-gray-200/80 dark:border-white/10 text-gray-900 dark:text-white font-bold hover:border-indigo-500/50 shadow-[0_3px_9pxpx_rgba(79,70,229,0.4)] hover:scale-105 active:scale-95",
     darkPrimary: 
       "bg-white text-black font-bold hover:scale-105 active:scale-95 shadow-[0_10px_40px_rgba(0,0,0,0.1)]",
     darkSecondary: 
-      "bg-gray-900 dark:bg-white text-white dark:text-black font-bold text-sm hover:scale-105 active:scale-95 transition-all shadow-[0_10px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_0_40px_rgba(255,255,255,0.1)] flex items-center justify-center gap-2 group relative overflow-hidden",
+      "bg-gray-900 dark:bg-white text-white dark:text-black font-bold text-sm hover:scale-105 active:scale-95 transition-all shadow-[0_3px_9px_rgba(0,0,0,0.1)] dark:shadow-[0_0_40px_rgba(255,255,255,0.1)] flex items-center justify-center gap-2 group relative overflow-hidden",
   };
 
   const combinedStyles = `${baseStyles} ${sizes[size]} ${variants[variant]} ${className}`;

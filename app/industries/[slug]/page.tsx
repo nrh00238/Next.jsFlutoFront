@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { industryDatabase } from "@/lib/industry-data";
 import Footer from "@/components/Footer";
+import { Button }from "@/components/Button";
 
 import { 
   IndustryClientHero, 
@@ -73,9 +74,9 @@ export default async function DynamicIndustryPage({ params }: { params: Promise<
             <h2 className="text-3xl sm:text-4xl font-black mb-6 tracking-tight">Ready to transform your operations?</h2>
             <p className="text-indigo-200 text-base mb-8">Speak with our {data.badge} integration specialists to build a custom deployment blueprint.</p>
             <div className="flex justify-center gap-4">
-              <Link href="/enterprise" className="px-8 py-4 rounded-xl bg-indigo-500 hover:bg-indigo-400 text-white font-bold text-sm shadow-xl transition-all">
+              <Button href="/company/contact" variant="primary" size="md">
                 Book Architecture Demo
-              </Link>
+              </Button>
             </div>
           </div>
         </div>
