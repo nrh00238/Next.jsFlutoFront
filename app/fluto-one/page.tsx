@@ -18,8 +18,8 @@ export default function FlutoOnePage() {
   const flutoOneData = {
     badge: "Fluto One Ultimate Suite",
     hero: {
-      headingTop: "The ultimate marketing",
-      headingGradient: "& business power-pack.",
+      headingTop: "Infinite Possibilities.",
+      headingGradient: "Meet Fluto One.",
       subheading: "Replace your fragmented marketing stack with one unified OS. Seamlessly connect AI campaign automation, lead scoring, and omnichannel outreach.",
       ctaPrimary: "Start Free Trial",
       ctaSecondary: "Talk to Experts"

@@ -62,11 +62,11 @@ export default function Footer() {
           <div>
             <h4 className="text-gray-900 dark:text-white font-bold text-sm mb-5 tracking-tight">Company</h4>
             <ul className="space-y-3 text-sm font-medium text-gray-500 dark:text-gray-400">
-              <li><Link href="/about" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">About Us</Link></li>
-              <li><Link href="/careers" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Careers</Link></li>
-              <li><Link href="/contact" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Contact Sales</Link></li>
+              <li><Link href="/company/about" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">About Us</Link></li>
+              <li><Link href="/company/careers" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Careers</Link></li>
+              <li><Link href="/company/contact" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Contact Sales</Link></li>
               <li><Link href="/community/partners" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Partner Program</Link></li>
-              <li><Link href="/legal" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Legal & Privacy</Link></li>
+              <li><Link href="/company/legal" className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">Legal & Privacy</Link></li>
             </ul>
           </div>
 

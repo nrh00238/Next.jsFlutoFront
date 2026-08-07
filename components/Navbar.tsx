@@ -16,11 +16,14 @@ import { Button } from "@/components/Button";
 export default function Navbar() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<"apps" | "industries" | "community" | null>(null);
+  // ADDED "company" to activeDropdown type
+  const [activeDropdown, setActiveDropdown] = useState<"apps" | "industries" | "community" | "company" | null>(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mobileAppsOpen, setMobileAppsOpen] = useState(false);
   const [mobileIndustriesOpen, setMobileIndustriesOpen] = useState(false);
   const [mobileCommunityOpen, setMobileCommunityOpen] = useState(false);
+  // ADDED mobileCompanyOpen state
+  const [mobileCompanyOpen, setMobileCompanyOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrolled, setScrolled] = useState(false);
@@ -66,7 +69,7 @@ export default function Navbar() {
             onMouseLeave={() => setActiveDropdown(null)}
           >
             <button className={`flex items-center gap-1.5 transition-colors py-2 relative group ${activeDropdown === "apps" ? "text-indigo-600 dark:text-indigo-400" : "hover:text-gray-900 dark:hover:text-white"}`}>
-              Apps <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === "apps" ? "rotate-180 text-indigo-600 dark:text-indigo-400" : ""}`} />
+              Fluto Apps <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === "apps" ? "rotate-180 text-indigo-600 dark:text-indigo-400" : ""}`} />
               <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-indigo-600 dark:bg-indigo-400 transition-all duration-300 rounded-full ${activeDropdown === "apps" ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100"}`} />
             </button>
 
@@ -139,7 +142,7 @@ export default function Navbar() {
 
                     <div className="mt-6 pt-4 border-t border-gray-100 dark:border-white/5 flex items-center justify-between text-xs text-gray-500 px-2 font-medium">
                       <span>Need custom module deployment?</span>
-                      <Link href="/enterprise" onClick={closeDropdown} className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Contact Architecture Team &rarr;</Link>
+                      <Link href="/company/contact" onClick={closeDropdown} className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Contact Architecture Team &rarr;</Link>
                     </div>
                   </div>
 
@@ -252,7 +255,7 @@ export default function Navbar() {
 
                     <div className="mt-6 pt-4 border-t border-gray-100 dark:border-white/5 flex items-center justify-between text-xs text-gray-500 px-2 font-medium">
                       <span>Looking for a tailored sector fit?</span>
-                      <Link href="/enterprise" onClick={closeDropdown} className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Talk to Industry Experts &rarr;</Link>
+                      <Link href="/company/contact" onClick={closeDropdown} className="text-indigo-600 dark:text-indigo-400 font-bold hover:underline">Talk to Industry Experts &rarr;</Link>
                     </div>
                   </div>
 
@@ -262,22 +265,22 @@ export default function Navbar() {
 
                     <div className="relative z-10">
                       <div className="flex items-center justify-between mb-5">
-                        <span className="bg-indigo-600 text-white text-[10px] font-bold px-3.5 py-1.5 rounded-full uppercase tracking-widest shadow-lg">Sector Spotlight</span>
+                        <span className="bg-indigo-600 text-white text-[10px] font-bold px-3.5 py-1.5 rounded-full uppercase tracking-widest shadow-lg">Trust & Safety</span>
                         <ShieldCheck className="w-7 h-7 text-indigo-400" />
                       </div>
-                      <h4 className="text-2xl font-bold tracking-tight mb-2.5 text-white">Enterprise Compliance</h4>
+                      <h4 className="text-2xl font-bold tracking-tight mb-2.5 text-white">Enterprise Security</h4>
                       <p className="text-xs text-slate-300 leading-relaxed mb-6 font-normal">
-                        Every industry has unique regulatory challenges. Fluto provides enterprise-grade data isolation, role-based access control, and region-specific compliance out-of-the-box.
+                        Your data is your most valuable asset. Fluto is engineered with industry-standard encryption, robust access controls, and secure cloud infrastructure.
                       </p>
                       <ul className="space-y-2.5 mb-6 text-xs text-gray-200 font-medium">
-                        <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" /><span>ISO 27001 & SOC2 Type II Certified</span></li>
-                        <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" /><span>Dedicated Cloud Hosting Options</span></li>
+                        <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" /><span>AES-256 Data Encryption</span></li>
+                        <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4 text-indigo-400 shrink-0" /><span>Secure Cloud Infrastructure</span></li>
                       </ul>
                     </div>
 
                     <div className="relative z-10">
-                      <Button href="/enterprise" onClick={closeDropdown} variant="primary" size="md">
-                        Request Industry Blueprint <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                      <Button href="/company/security" onClick={closeDropdown} variant="primary" size="md">
+                        View Security Architecture <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </Button>
                     </div>
                   </div>
@@ -308,7 +311,7 @@ export default function Navbar() {
                     <h4 className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest px-2">Learn</h4>
                     <div className="space-y-1">
                       <Link href="/community/tutorials" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Tutorials & Guides</Link>
-                      <Link href="/" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Certifications</Link>
+                      <Link href="/community/certifications" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Certifications</Link>
                       <Link href="/resources/blog" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Blog & Articles</Link>
                     </div>
                   </div>
@@ -316,9 +319,9 @@ export default function Navbar() {
                   <div className="space-y-3 border-x border-gray-100 dark:border-white/5 px-4">
                     <h4 className="text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-widest px-2">Collaborate</h4>
                     <div className="space-y-1">
-                      <Link href="/" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Developer Forum</Link>
+                      <Link href="/community/forums" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Developer Forum</Link>
                       <Link href="/community/events" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Global Events</Link>
-                      <Link href="/" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Become a Partner</Link>
+                      <Link href="/community/partners" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Become a Partner</Link>
                     </div>
                   </div>
 
@@ -329,6 +332,33 @@ export default function Navbar() {
                       <Link href="/help" onClick={closeDropdown} className="block p-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-xs font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600">Support Center</Link>
                     </div>
                   </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
+          <div 
+            className="relative h-20 flex items-center px-3"
+            onMouseEnter={() => setActiveDropdown("company")}
+            onMouseLeave={() => setActiveDropdown(null)}
+          >
+            <button className={`flex items-center gap-1.5 transition-colors py-2 relative group ${activeDropdown === "company" ? "text-indigo-600 dark:text-indigo-400" : "hover:text-gray-900 dark:hover:text-white"}`}>
+              Company <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${activeDropdown === "company" ? "rotate-180 text-indigo-600 dark:text-indigo-400" : ""}`} />
+              <span className={`absolute bottom-0 left-0 w-full h-[2px] bg-indigo-600 dark:bg-indigo-400 transition-all duration-300 rounded-full ${activeDropdown === "company" ? "scale-x-100 opacity-100" : "scale-x-0 opacity-0 group-hover:scale-x-100 group-hover:opacity-100"}`} />
+            </button>
+            <AnimatePresence>
+              {activeDropdown === "company" && (
+                <motion.div 
+                  initial={{ opacity: 0, y: 15, scale: 0.98 }} 
+                  animate={{ opacity: 1, y: 0, scale: 1 }} 
+                  exit={{ opacity: 0, y: 10, scale: 0.98 }} 
+                  transition={{ duration: 0.2, ease: "easeOut" }}
+                  className="absolute top-20 left-3 w-56 bg-white dark:bg-[#0A0A0A] border border-gray-200/60 dark:border-white/10 rounded-2xl shadow-[0_20px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_0_40px_rgba(0,0,0,0.5)] p-2 z-50 flex flex-col gap-1"
+                >
+                  <Link href="/company/about" onClick={closeDropdown} className="block px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">About Us</Link>
+                  <Link href="/company/careers" onClick={closeDropdown} className="block px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">Careers</Link>
+                  <Link href="/company/contact" onClick={closeDropdown} className="block px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">Contact Sales</Link>
+                  <Link href="/company/security" onClick={closeDropdown} className="block px-4 py-2.5 rounded-xl hover:bg-gray-50 dark:hover:bg-white/[0.02] transition-colors text-sm font-semibold text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400">Security & Trust</Link>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -441,8 +471,8 @@ export default function Navbar() {
                 {mobileCommunityOpen && (
                   <div className="px-3 pb-3 pt-1 space-y-2 grid grid-cols-1 border-t border-gray-200/50 dark:border-white/10 mt-1 text-xs">
                     <Link href="/community/tutorials" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Tutorials & Guides</Link>
-                    <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Certifications</Link>
-                    <Link href="/" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Developer Forum</Link>
+                    <Link href="/community/certifications" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Certifications</Link>
+                    <Link href="/community/forums" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Developer Forum</Link>
                     <Link href="/community/events" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Global Events</Link>
                     <Link href="/community/find-partner" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Find a Partner</Link>
                   </div>
@@ -450,8 +480,23 @@ export default function Navbar() {
               </div>
 
               <div className="bg-gray-50 dark:bg-white/[0.02] rounded-2xl p-2 border border-gray-100 dark:border-white/5">
+                <button onClick={() => setMobileCompanyOpen(!mobileCompanyOpen)} className="w-full flex items-center justify-between p-3 text-gray-900 dark:text-white font-bold">
+                  <span>Company</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${mobileCompanyOpen ? "rotate-180 text-indigo-600" : ""}`} />
+                </button>
+                {mobileCompanyOpen && (
+                  <div className="px-3 pb-3 pt-1 space-y-2 grid grid-cols-1 border-t border-gray-200/50 dark:border-white/10 mt-1 text-xs">
+                    <Link href="/company/about" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">About Us</Link>
+                    <Link href="/company/careers" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Careers</Link>
+                    <Link href="/company/contact" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Contact Sales</Link>
+                    <Link href="/company/security" onClick={() => setIsMobileMenuOpen(false)} className="p-2 rounded-xl hover:bg-white dark:hover:bg-white/5 block">Security & Trust</Link>
+                  </div>
+                )}
+              </div>
+
+              <div className="bg-gray-50 dark:bg-white/[0.02] rounded-2xl p-2 border border-gray-100 dark:border-white/5">
                 <Link href="/pricing" onClick={() => setIsMobileMenuOpen(false)} className="w-full flex items-center justify-between p-3 text-gray-900 dark:text-white font-bold">
-                  <span>Pricing</span>
+                  <span>Pricing Hub</span>
                   <ArrowRight className="w-4 h-4 text-indigo-500" />
                 </Link>
               </div>

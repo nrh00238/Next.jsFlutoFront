@@ -16,7 +16,6 @@ export default function EventsPage() {
   return (
     <main className={UI.pageWrapper}>
       
-      {/* 🟢 SHORT 2-LINE HEADING */}
       <GlobalHero 
         badgeText="Fluto Global Community"
         badgeIcon={<Users className="w-4 h-4" />}

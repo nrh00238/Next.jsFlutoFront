@@ -14,8 +14,8 @@ export const industryDatabase: Record<string, IndustryData> = {
   fintech: {
     slug: "fintech",
     badge: "Fintech & Banking",
-    title: "Unify financial operations with absolute",
-    highlight: "security.",
+    title: "Seamless finance.",
+    highlight: "Ironclad security.",
     description: "Fluto OS empowers financial institutions to manage ledgers, automate compliance, and scale customer support with SOC2 Type II and ISO 27001 certified architecture.",
     stats: [
       { value: "100%", label: "Audit Compliance" },
@@ -40,8 +40,8 @@ export const industryDatabase: Record<string, IndustryData> = {
   healthcare: {
     slug: "healthcare",
     badge: "Healthcare",
-    title: "Patient-first management without the",
-    highlight: "friction.",
+    title: "Seamless care.",
+    highlight: "Zero friction.",
     description: "Connect patient scheduling, billing, and support in one HIPAA-ready operating system designed to reduce administrative bloat and improve care delivery.",
     stats: [
       { value: "40%", label: "Reduced Admin Time" },
@@ -66,8 +66,8 @@ export const industryDatabase: Record<string, IndustryData> = {
   retail: {
     slug: "retail",
     badge: "Retail & E-commerce",
-    title: "Omnichannel retail orchestration at",
-    highlight: "scale.",
+    title: "Sell everywhere.",
+    highlight: "Scale effortlessly.",
     description: "From warehouse inventory sync to post-purchase customer support, Fluto OS unifies your entire retail lifecycle to drive repeat revenue.",
     stats: [
       { value: "2.5x", label: "Higher Retention" },
@@ -92,8 +92,8 @@ export const industryDatabase: Record<string, IndustryData> = {
   saas: {
     slug: "saas",
     badge: "Tech & SaaS",
-    title: "The growth engine for modern software",
-    highlight: "companies.",
+    title: "Built for software.",
+    highlight: "Designed for scale.",
     description: "Built by a SaaS company for SaaS companies. Automate subscription billing, reduce churn with AI support, and align your GTM teams on one data source.",
     stats: [
       { value: "30%", label: "Churn Reduction" },
@@ -118,8 +118,8 @@ export const industryDatabase: Record<string, IndustryData> = {
   manufacturing: {
     slug: "manufacturing",
     badge: "Manufacturing",
-    title: "End-to-end supply chain visibility and",
-    highlight: "control.",
+    title: "From source to sale,",
+    highlight: "fully visible.",
     description: "Replace legacy on-premise systems with a lightning-fast, cloud-native ERP and Asset manager built for global manufacturing grids.",
     stats: [
       { value: "99.9%", label: "Uptime SLA" },
@@ -143,8 +143,8 @@ export const industryDatabase: Record<string, IndustryData> = {
   },
   education: {
     slug: "education",
-    badge: "Education & EdTech",
-    title: "Campus management and student success,",
+    badge: "Smarter campuses.",
+    title: "Brighter futures.",
     highlight: "unified.",
     description: "From lead generation for admissions to automated fee collection and alumni engagement, Fluto OS connects the entire student journey.",
     stats: [
