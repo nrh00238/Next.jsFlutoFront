@@ -23,7 +23,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
 export default async function DynamicProductPage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
-  const productData = productDatabase[resolvedParams.slug];
+  
+  // 🟢 Yahan se 'slug' variable ko extract kar liya taaki niche use kar sakein
+  const { slug } = resolvedParams; 
+  
+  const productData = productDatabase[slug];
 
   if (!productData) {
     notFound(); 
@@ -31,14 +35,24 @@ export default async function DynamicProductPage({ params }: { params: Promise<{
 
   return (
     <main className="bg-white dark:bg-[#030303] min-h-screen transition-colors duration-300 selection:bg-indigo-500 selection:text-white overflow-hidden text-gray-900 dark:text-gray-100">
-      <ProductHero badge={productData.badge} hero={productData.hero} slug={productData.slug} // <-- Ye pass karna zaroori hai ab
-/>
-      <ProductFeatures heading={productData.features.sectionHeading} subheading={productData.features.sectionSubheading} features={productData.features.items} />
+      <ProductHero 
+        badge={productData.badge} 
+        hero={productData.hero} 
+        slug={productData.slug} // <-- Properly passed
+      />
+      <ProductFeatures 
+        heading={productData.features.sectionHeading} 
+        subheading={productData.features.sectionSubheading} 
+        features={productData.features.items} 
+      />
       <ProductSecurity security={productData.security} />
       <ProductTestimonials testimonials={productData.testimonials} />
       <ProductStats stats={productData.stats} />
       <ProductFAQ faqs={productData.faqs} />
-      <ProductPricing tiers={productData.pricing} />
+      
+      {/* 🟢 Ab yahan 'slug' properly pass hoga, aur error nahi aayega */}
+      <ProductPricing productSlug={slug} />
+      
       <Footer />
     </main>
   );
