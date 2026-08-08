@@ -3,14 +3,14 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { Calendar, User, BookOpen, Clock, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Calendar, User, BookOpen, Clock, ArrowLeft, ArrowRight, Tag as TagIcon } from 'lucide-react';
 import Footer from '@/components/Footer';
+import ShareButtons from '@/components/blog/ShareButtons';
 
 async function getBlogData(slug: string) {
   try {
     const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
     
-    // Fetch current blog
     const blogRes = await fetch(`${backendUrl}/api/v1/blogs/${slug}`, { cache: 'no-store' });
     if (!blogRes.ok) return { blog: null, prevBlog: null, nextBlog: null };
     const blogJson = await blogRes.json();
@@ -18,13 +18,20 @@ async function getBlogData(slug: string) {
 
     if (!blog) return { blog: null, prevBlog: null, nextBlog: null };
 
-    // Fetch all blogs list for robust Prev/Next navigation
     const listRes = await fetch(`${backendUrl}/api/v1/blogs`, { cache: 'no-store' });
     const listJson = listRes.ok ? await listRes.json() : null;
     
-    // 🟢 SAFE ARRAY CHECK: Ensure allBlogs is strictly an array before running array methods
     let rawBlogs = listJson?.data || listJson || [];
-    const allBlogs = Array.isArray(rawBlogs) ? rawBlogs : (rawBlogs.data || []);
+    let allBlogs = Array.isArray(rawBlogs) ? rawBlogs : (rawBlogs.data || []);
+
+    if (Array.isArray(allBlogs) && allBlogs.length > 0) {
+      allBlogs.sort((a: any, b: any) => {
+        const timeA = new Date(a.published_at || a.created_at || a.updated_at || 0).getTime();
+        const timeB = new Date(b.published_at || b.created_at || b.updated_at || 0).getTime();
+        if (timeA !== timeB) return timeB - timeA; 
+        return (b.id || 0) - (a.id || 0);
+      });
+    }
 
     let prevBlog = null;
     let nextBlog = null;
@@ -32,12 +39,8 @@ async function getBlogData(slug: string) {
     if (Array.isArray(allBlogs) && allBlogs.length > 0) {
       const currentIndex = allBlogs.findIndex((b: any) => b.slug === slug);
       if (currentIndex !== -1) {
-        if (currentIndex > 0) {
-          prevBlog = allBlogs[currentIndex - 1];
-        }
-        if (currentIndex < allBlogs.length - 1) {
-          nextBlog = allBlogs[currentIndex + 1];
-        }
+        if (currentIndex > 0) prevBlog = allBlogs[currentIndex - 1];
+        if (currentIndex < allBlogs.length - 1) nextBlog = allBlogs[currentIndex + 1];
       }
     }
 
@@ -60,6 +63,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+// Reading time calculation
+function calculateReadingTime(htmlContent: string) {
+  if (!htmlContent) return "3 min read";
+  const plainText = htmlContent.replace(/<[^>]*>?/gm, '');
+  const wordCount = plainText.trim().split(/\s+/).length;
+  const readingSpeed = 200;
+  const minutes = Math.ceil(wordCount / readingSpeed);
+  return `${minutes} min read`;
+}
+
 export default async function BlogDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const { blog, prevBlog, nextBlog } = await getBlogData(slug);
@@ -72,6 +85,12 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/storage/${blog.cover_image.replace(/^\/storage\//, '')}`
     : null;
 
+  // Date Formatting
+  const postDate = blog.published_at || blog.created_at;
+  const formattedDate = postDate 
+    ? new Date(postDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) 
+    : 'Recent';
+
   return (
     <main className="bg-white dark:bg-[#030303] min-h-screen text-gray-900 dark:text-white">
       
@@ -82,9 +101,24 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
 
         <div className="relative z-10 text-center max-w-4xl mx-auto flex flex-col items-center">
           
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider mb-6 border border-indigo-100 dark:border-indigo-500/20 shadow-sm">
-            <BookOpen className="w-3.5 h-3.5" />
-            <span>{blog.categories?.[0]?.name || "Fluto Insights"}</span>
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+            {blog.categories && blog.categories.length > 0 ? (
+              blog.categories.map((cat: any) => (
+                <Link 
+                  key={cat.id || cat.name} 
+                  href={`/resources/blog?category=${encodeURIComponent(cat.name)}`}
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider border border-indigo-100 dark:border-indigo-500/20 shadow-sm hover:bg-indigo-100 dark:hover:bg-indigo-500/20 transition-colors"
+                >
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>{cat.name}</span>
+                </Link>
+              ))
+            ) : (
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-wider border border-indigo-100 dark:border-indigo-500/20 shadow-sm">
+                <BookOpen className="w-3.5 h-3.5" />
+                <span>Fluto Insights</span>
+              </div>
+            )}
           </div>
 
           <h1 className="text-2xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight leading-snug mb-6 max-w-3xl">
@@ -101,79 +135,116 @@ export default async function BlogDetail({ params }: { params: Promise<{ slug: s
 
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/[0.05] backdrop-blur-xl border border-indigo-100 dark:border-white/10 text-xs font-medium text-gray-600 dark:text-gray-400 shadow-sm">
               <Calendar className="w-3.5 h-3.5 text-indigo-500" />
-              <span>{blog.published_at ? new Date(blog.published_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : 'Recent'}</span>
+              <span>{formattedDate}</span>
             </div>
 
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/[0.05] backdrop-blur-xl border border-indigo-100 dark:border-white/10 text-xs font-medium text-gray-600 dark:text-gray-400 shadow-sm">
               <Clock className="w-3.5 h-3.5 text-indigo-500" />
-              <span>5 min read</span>
+              <span>{calculateReadingTime(blog.content)}</span>
             </div>
           </div>
 
         </div>
       </section>
 
-      {/* Cover Image & Content Section */}
-      <section className="px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto pt-20 pb-20">
-        {coverImageUrl && (
-          <div className="w-full h-72 sm:h-[400px] rounded-[2rem] overflow-hidden mb-12 shadow-2xl bg-gray-100 dark:bg-[#111] border border-gray-200/60 dark:border-white/5 relative group">
-            <img 
-              src={coverImageUrl} 
-              alt={blog.title} 
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-            />
-          </div>
-        )}
-
-        <div 
-          className="prose prose-indigo dark:prose-invert max-w-none text-gray-800 dark:text-gray-200 leading-relaxed space-y-6 text-base sm:text-lg"
-          dangerouslySetInnerHTML={{ __html: blog.content }} 
-        />
-
-        {/* Previous / Next Post Navigation Footer */}
-        <div className="mt-16 pt-8 border-t border-gray-200 dark:border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+      {/* Main Content Layout with Sticky Right Share Bar */}
+      <section className="px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto pt-12 pb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_60px] gap-8 lg:gap-14 items-start relative">
           
-          {prevBlog ? (
-            <Link 
-              href={`/resources/blog/${prevBlog.slug}`} 
-              className="p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.02] border border-gray-200/60 dark:border-white/5 hover:border-indigo-500/40 transition-all group flex flex-col justify-between"
-            >
-              <div className="flex items-center gap-2 text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">
-                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Previous Article
+          <div className="w-full max-w-4xl mx-auto lg:mx-0">
+            {coverImageUrl && (
+              <div className="w-full h-72 sm:h-[400px] rounded-[2rem] overflow-hidden mb-12 shadow-2xl bg-gray-100 dark:bg-[#111] border border-gray-200/60 dark:border-white/5 relative group">
+                <img 
+                  src={coverImageUrl} 
+                  alt={blog.title} 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
               </div>
-              <div className="font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
-                {prevBlog.title}
-              </div>
-            </Link>
-          ) : (
-            <div className="p-6 rounded-2xl bg-slate-50/50 dark:bg-white/[0.01] border border-gray-200/40 dark:border-white/5 opacity-50 flex flex-col justify-between cursor-not-allowed">
-              <div className="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
-                <ArrowLeft className="w-4 h-4" /> Previous Article
-              </div>
-              <div className="font-medium text-gray-400 text-sm">This is the first article</div>
-            </div>
-          )}
+            )}
 
-          {nextBlog ? (
-            <Link 
-              href={`/resources/blog/${nextBlog.slug}`} 
-              className="p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.02] border border-gray-200/60 dark:border-white/5 hover:border-indigo-500/40 transition-all group flex flex-col justify-between text-left sm:text-right"
-            >
-              <div className="flex items-center justify-start sm:justify-end gap-2 text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">
-                Next Article <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <div 
+              className="prose prose-indigo dark:prose-invert max-w-none text-gray-800 dark:text-gray-200 leading-relaxed space-y-6 text-base sm:text-lg"
+              dangerouslySetInnerHTML={{ __html: blog.content }} 
+            />
+
+            <div className="block lg:hidden mt-12 pt-6 border-t border-gray-200 dark:border-white/10">
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">Share this article:</span>
+                <ShareButtons title={blog.title} />
               </div>
-              <div className="font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
-                {nextBlog.title}
-              </div>
-            </Link>
-          ) : (
-            <div className="p-6 rounded-2xl bg-slate-50/50 dark:bg-white/[0.01] border border-gray-200/40 dark:border-white/5 opacity-50 flex flex-col justify-between text-left sm:text-right cursor-not-allowed">
-              <div className="flex items-center justify-start sm:justify-end gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
-                Next Article <ArrowRight className="w-4 h-4" />
-              </div>
-              <div className="font-medium text-gray-400 text-sm">You've reached the latest article</div>
             </div>
-          )}
+
+            {blog.tags && blog.tags.length > 0 && (
+              <div className="mt-12 pt-6 border-t border-gray-200 dark:border-white/10 flex flex-wrap items-center gap-2">
+                <span className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-widest mr-2 flex items-center gap-1.5">
+                  <TagIcon className="w-3.5 h-3.5 text-indigo-500" /> Tags:
+                </span>
+                {blog.tags.map((tag: any) => (
+                  <Link
+                    key={tag.id || tag.name}
+                    href={`/resources/blog?tag=${encodeURIComponent(tag.name)}`}
+                    className="px-3.5 py-1.5 rounded-lg bg-indigo-50 dark:bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-500/25 transition-colors border border-indigo-100 dark:border-indigo-500/20 shadow-sm"
+                  >
+                    #{tag.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            <div className="mt-16 pt-8 border-t border-gray-200 dark:border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              {prevBlog ? (
+                <Link 
+                  href={`/resources/blog/${prevBlog.slug}`} 
+                  className="p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.02] border border-gray-200/60 dark:border-white/5 hover:border-indigo-500/40 transition-all group flex flex-col justify-between"
+                >
+                  <div className="flex items-center gap-2 text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">
+                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" /> Newer Article
+                  </div>
+                  <div className="font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
+                    {prevBlog.title}
+                  </div>
+                </Link>
+              ) : (
+                <div className="p-6 rounded-2xl bg-slate-50/50 dark:bg-white/[0.01] border border-gray-200/40 dark:border-white/5 opacity-50 flex flex-col justify-between cursor-not-allowed">
+                  <div className="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+                    <ArrowLeft className="w-4 h-4" /> Newer Article
+                  </div>
+                  <div className="font-medium text-gray-400 text-sm">This is the latest article</div>
+                </div>
+              )}
+
+              {nextBlog ? (
+                <Link 
+                  href={`/resources/blog/${nextBlog.slug}`} 
+                  className="p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.02] border border-gray-200/60 dark:border-white/5 hover:border-indigo-500/40 transition-all group flex flex-col justify-between text-left sm:text-right"
+                >
+                  <div className="flex items-center justify-start sm:justify-end gap-2 text-xs font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-2">
+                    Older Article <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                  <div className="font-bold text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors line-clamp-1">
+                    {nextBlog.title}
+                  </div>
+                </Link>
+              ) : (
+                <div className="p-6 rounded-2xl bg-slate-50/50 dark:bg-white/[0.01] border border-gray-200/40 dark:border-white/5 opacity-50 flex flex-col justify-between text-left sm:text-right cursor-not-allowed">
+                  <div className="flex items-center justify-start sm:justify-end gap-2 text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">
+                    Older Article <ArrowRight className="w-4 h-4" />
+                  </div>
+                  <div className="font-medium text-gray-400 text-sm">You've reached the first article</div>
+                </div>
+              )}
+
+            </div>
+
+          </div>
+
+          <div className="hidden lg:block sticky top-28 z-10">
+            <div className="flex flex-col items-center">
+              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-3">Share</span>
+              <ShareButtons title={blog.title} />
+            </div>
+          </div>
 
         </div>
       </section>
