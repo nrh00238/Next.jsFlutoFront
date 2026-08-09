@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { motion } from "framer-motion";
-import { BookOpen, ArrowRight, Clock, Tag as TagIcon, Folder, X, User } from "lucide-react";
+import { BookOpen, ArrowRight, Clock, Tag as TagIcon, Folder, X } from "lucide-react";
 import { fadeUpVariant, UI } from "@/lib/constants";
 import Footer from "@/components/Footer";
 import GlobalHero from "@/components/layout/GlobalHero";
@@ -10,7 +10,7 @@ import { Button } from "@/components/Button";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 
-export default function BlogPage() {
+function BlogContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
 
@@ -37,7 +37,6 @@ export default function BlogPage() {
         if (blogsJson.success) {
           let fetchedBlogs = blogsJson.data.data || [];
 
-          // Recent-First Sorting
           fetchedBlogs.sort((a: any, b: any) => {
             const timeA = new Date(a.published_at || a.created_at || a.updated_at || 0).getTime();
             const timeB = new Date(b.published_at || b.created_at || b.updated_at || 0).getTime();
@@ -59,7 +58,7 @@ export default function BlogPage() {
         }
 
       } catch (error) {
-        console.error("Failed to fetch blog sidebar data:", error);
+        console.error(error);
       } finally {
         setLoading(false);
       }
@@ -113,7 +112,6 @@ export default function BlogPage() {
 
   return (
     <main className={UI.pageWrapper}>
-      
       <GlobalHero 
         badgeText="Fluto Blog"
         badgeIcon={<BookOpen className="w-4 h-4" />}
@@ -128,9 +126,7 @@ export default function BlogPage() {
         </div>
       </GlobalHero>
 
-      {/* MAIN CONTENT WITH RIGHT SIDEBAR */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto pb-32 pt-20 relative z-20">
-        
         {(selectedCategory || selectedTag) && (
           <div className="mb-8 p-4 rounded-2xl bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-100 dark:border-indigo-500/20 flex items-center justify-between">
             <div className="flex items-center gap-2 text-sm font-semibold text-indigo-900 dark:text-indigo-200">
@@ -154,8 +150,6 @@ export default function BlogPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
-            
-            {/* Left 2 Columns: Filtered Blog Grid Cards */}
             <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-6">
               {filteredBlogs.map((blog) => {
                 const authorName = blog.author?.name || 'Fluto Admin';
@@ -173,7 +167,6 @@ export default function BlogPage() {
                     variants={fadeUpVariant} 
                     className="group relative flex flex-col bg-white dark:bg-[#0A0A0A] rounded-[2rem] p-4 border border-gray-200/50 dark:border-white/5 shadow-sm hover:shadow-xl hover:border-indigo-500/30 transition-all duration-300"
                   >
-                    {/* 🟢 Poore box ko clickable banane ke liye Link wrapper with absolute fill */}
                     <Link href={`/resources/blog/${blog.slug}`} className="absolute inset-0 z-10" aria-label={blog.title} />
 
                     <div className="w-full h-44 rounded-[1.5rem] overflow-hidden mb-5 relative bg-gray-100 dark:bg-[#111]">
@@ -192,22 +185,17 @@ export default function BlogPage() {
                       </div>
                     </div>
                     
-                    <div className="px-2 flex flex-col flex-grow">
-                      
+                    <div className="px-2 flex flex-col flex-grow relative z-20 pointer-events-none">
                       <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-3">
                         <div className="flex items-center gap-1.5 font-semibold text-gray-800 dark:text-gray-200">
                           <div className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-[9px] font-black uppercase">
-                            {(blog.author?.name || 'Fluto Admin')[0]}
+                            {authorName[0]}
                           </div>
-                          <span className="truncate max-w-[110px]">{blog.author?.name || 'Fluto Admin'}</span>
+                          <span className="truncate max-w-[110px]">{authorName}</span>
                         </div>
                         <div className="flex items-center gap-1 text-[11px]">
                           <Clock className="w-3 h-3 text-indigo-500" />
-                          <span>
-                            {blog.published_at || blog.created_at 
-                              ? new Date(blog.published_at || blog.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) 
-                              : 'Recent'}
-                          </span>
+                          <span>{formattedDate}</span>
                         </div>
                       </div>
 
@@ -217,16 +205,19 @@ export default function BlogPage() {
                       <p className="text-xs text-gray-600 dark:text-gray-400 line-clamp-2 mb-4">
                         {blog.excerpt}
                       </p>
+                      
+                      <div className="mt-auto pt-2 text-xs font-bold text-indigo-600 dark:text-indigo-400 flex items-center">
+                        <span className="flex items-center group-hover:translate-x-1 transition-transform">
+                          Read Article <ArrowRight className="w-3 h-3 ml-1" />
+                        </span>
+                      </div>
                     </div>
                   </motion.div>
                 );
               })}
             </div>
 
-            {/* Right 1 Column: Sidebar */}
             <aside className="space-y-8 lg:sticky lg:top-28">
-              
-              {/* Recent Blogs Widget */}
               <div className="bg-white dark:bg-[#0A0A0A] p-6 rounded-[2rem] border border-gray-200/60 dark:border-white/5 shadow-sm">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   <Clock className="w-4 h-4 text-indigo-500" /> Recent Posts
@@ -254,7 +245,6 @@ export default function BlogPage() {
                 </div>
               </div>
 
-              {/* Categories Widget */}
               <div className="bg-white dark:bg-[#0A0A0A] p-6 rounded-[2rem] border border-gray-200/60 dark:border-white/5 shadow-sm">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   <Folder className="w-4 h-4 text-indigo-500" /> Categories
@@ -281,7 +271,6 @@ export default function BlogPage() {
                 </div>
               </div>
 
-              {/* Tags Widget */}
               <div className="bg-white dark:bg-[#0A0A0A] p-6 rounded-[2rem] border border-gray-200/60 dark:border-white/5 shadow-sm">
                 <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                   <TagIcon className="w-4 h-4 text-indigo-500" /> Popular Tags
@@ -309,12 +298,26 @@ export default function BlogPage() {
               </div>
 
             </aside>
-
           </div>
         )}
       </section>
 
       <Footer />
     </main>
+  );
+}
+
+export default function BlogPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-white dark:bg-[#030303]">
+        <div className="animate-pulse flex flex-col items-center gap-4">
+          <div className="h-8 w-64 bg-gray-200 dark:bg-white/10 rounded-full"></div>
+          <div className="text-gray-500 dark:text-gray-400 font-medium">Loading Fluto Blog...</div>
+        </div>
+      </div>
+    }>
+      <BlogContent />
+    </Suspense>
   );
 }

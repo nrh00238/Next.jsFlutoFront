@@ -40,9 +40,11 @@ export default function ProductPricing({ productSlug }: { productSlug: string })
     fetchProductPricing();
   }, [productSlug]);
 
+  // 🟢 FIXED: Direct Redirect to Laravel Auth Portal
   const handleCheckout = (planId: number) => {
-    console.log("Proceeding to checkout with Plan ID:", planId);
-    alert(`Initiating secure checkout for Plan ID: ${planId} (${isAnnual ? 'Annually' : 'Monthly'})`);
+    const cycle = isAnnual ? "yearly" : "monthly";
+    // Using window.location.href because we are redirecting to an external/different subdomain app
+    window.location.href = `https://account.fluto.test/register?plan_id=${planId}&cycle=${cycle}`;
   };
 
   const getDisplayPrice = (plan: any) => {
@@ -66,7 +68,6 @@ export default function ProductPricing({ productSlug }: { productSlug: string })
 
       <div className="max-w-7xl mx-auto relative z-10">
         
-        {/* Header & Toggle */}
         <div className="text-center mb-16">
           <div className={`${UI.badge} mb-4`}>Pricing</div>
           <h2 className={`${UI.sectionHeading} ${UI.headingColor} mb-4`}>
@@ -101,21 +102,17 @@ export default function ProductPricing({ productSlug }: { productSlug: string })
               <motion.div key={plan.id} variants={fadeUpVariant} className={`relative p-8 rounded-[2.5rem] flex flex-col justify-between ${plan.is_popular ? "bg-indigo-950 dark:bg-[#110B29] border border-indigo-500/50 shadow-2xl scale-100 md:scale-105 z-10" : "bg-white/80 dark:bg-white/[0.02] backdrop-blur-xl border border-indigo-100 dark:border-white/5 shadow-xl"}`}>
                 
                 <div>
-                  {/* Popular Badge */}
                   {plan.is_popular && (
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 bg-indigo-500 text-white text-xs font-bold uppercase tracking-widest rounded-full flex items-center gap-1 shadow-lg">
                       <Sparkles className="w-3 h-3" /> Most Popular
                     </div>
                   )}
 
-                  {/* Plan Name & Price */}
                   <div className={`text-xl font-bold mb-2 ${plan.is_popular ? "text-white" : "text-indigo-950 dark:text-white"}`}>{plan.name}</div>
                   <div className="mb-4 flex items-end">
                     <span className={`text-4xl font-black ${plan.is_popular ? "text-white" : "text-gray-900 dark:text-white"}`}>
                       {plan.is_custom ? "Custom" : `₹${getDisplayPrice(plan)}`}
                     </span>
-                    
-                    {/* 🟢 FIXED: Hamesha '/mo' dikhega */}
                     {!plan.is_custom && (
                       <span className={`text-sm font-medium mb-1 ml-1 ${plan.is_popular ? "text-indigo-200" : "text-gray-500 dark:text-gray-400"}`}>
                         /mo
@@ -124,7 +121,6 @@ export default function ProductPricing({ productSlug }: { productSlug: string })
                   </div>
                   <p className={`text-sm mb-8 font-medium ${plan.is_popular ? "text-indigo-200" : "text-gray-500 dark:text-gray-400"}`}>{plan.description}</p>
 
-                  {/* Dynamic Features List */}
                   <div className="space-y-4 mb-10">
                     {plan.features?.map((feat: string, j: number) => (
                       <div key={j} className="flex items-start gap-3">
@@ -135,7 +131,6 @@ export default function ProductPricing({ productSlug }: { productSlug: string })
                   </div>
                 </div>
 
-                {/* Checkout Button */}
                 <Button 
                   variant={plan.is_popular ? "primary" : "secondary"} 
                   size="md"

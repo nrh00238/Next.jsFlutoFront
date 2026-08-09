@@ -77,7 +77,7 @@ export default function FlutoOnePage() {
       
       <ProductFAQ faqs={flutoOneData.faqs} />
       
-      <ProductPricing tiers={flutoOneData.pricing} />
+      <ProductPricing productSlug="fluto-one" />
       
       <Footer />
     </main>
