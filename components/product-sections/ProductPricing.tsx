@@ -17,7 +17,7 @@ export default function ProductPricing({ productSlug }: { productSlug: string })
       if (!productSlug) return;
       try {
         setLoading(true);
-        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "http://venu.fluto.test";
+        const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || "https://venu.hifluto.com";
         const res = await fetch(`${backendUrl}/api/v1/products/${productSlug}`, {
           cache: "no-store",
         });
@@ -44,7 +44,7 @@ export default function ProductPricing({ productSlug }: { productSlug: string })
   const handleCheckout = (planId: number) => {
     const cycle = isAnnual ? "yearly" : "monthly";
     // Using window.location.href because we are redirecting to an external/different subdomain app
-    window.location.href = `https://account.fluto.test/register?plan_id=${planId}&cycle=${cycle}`;
+    window.location.href = `https://accounts.hifluto.com/register?plan_id=${planId}&cycle=${cycle}`;
   };
 
   const getDisplayPrice = (plan: any) => {

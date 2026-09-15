@@ -1,0 +1,53 @@
+name: Build Hifluto Frontend
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 20
+
+    env:
+      NEXT_PUBLIC_BACKEND_URL: https://venu.hifluto.com
+      NEXT_TELEMETRY_DISABLED: "1"
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22.23.2"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Package standalone application
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f .next/standalone/server.js
+          mkdir -p .next/standalone/.next
+          cp -a .next/static .next/standalone/.next/static
+          if [ -d public ]; then
+            cp -a public .next/standalone/public
+          fi
+          printf '%s\n' "$GITHUB_SHA" > .next/standalone/BUILD_COMMIT
+          tar -czf hifluto-frontend.tar.gz -C .next/standalone .
+
+      - name: Upload deployment package
+        uses: actions/upload-artifact@v4
+        with:
+          name: hifluto-frontend-build
+          path: hifluto-frontend.tar.gz
+          if-no-files-found: error
+          retention-days: 7

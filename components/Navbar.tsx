@@ -387,10 +387,10 @@ export default function Navbar() {
             </button>
           )}
           <div className="hidden md:flex items-center gap-3">
-            <Button href="http://fluto.test/login" variant="secondary" size="sm">
+            <Button href="https://accounts.hifluto.com/login" variant="secondary" size="sm">
               Sign In
             </Button>
-            <Button href="http://fluto.test/register" variant="primary" size="sm">
+            <Button href="https://accounts.hifluto.com/register" variant="primary" size="sm">
               Get Started
             </Button>
           </div>
@@ -513,10 +513,10 @@ export default function Navbar() {
             </div>
 
             <div className="pt-4 border-t border-gray-200 dark:border-white/10 flex flex-col gap-3 mt-auto pb-6">
-                <Button href="http://fluto.test/login" variant="primary" size="sm">
+                <Button href="https://accounts.hifluto.com/login" variant="primary" size="sm">
                   Sign In
                 </Button>
-                <Button href="http://fluto.test/register" variant="secondary" size="sm">
+                <Button href="https://accounts.hifluto.com/register" variant="secondary" size="sm">
                   Get Started Free
                 </Button>
               </div>

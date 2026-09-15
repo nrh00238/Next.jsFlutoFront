@@ -1,5 +1,4 @@
 // Local development mein self-signed SSL certificate error bypass karne ke liye
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
